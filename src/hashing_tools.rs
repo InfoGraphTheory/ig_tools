@@ -54,20 +54,6 @@ pub fn concat_n_hash(text1: &str, text2: &str) -> (String, String, String) {
     (id, sorted.0, sorted.1)
 }
 
-///
-/// This method outght to be changed in the future as it concatenates fields without any separator
-/// character, making the risk of coalition higher. Also the name by be a bit confusing. It may be
-/// that the method is meant for hashed values, but the method itself does not have to do with
-/// hashing processes of any kind.
-///
-pub fn push_hashed(id: &str, name: &str, label: &str, description: &str) -> String{
-    let mut pushed: String = id.to_string();
-    pushed.push_str(name);
-    pushed.push_str(label);
-    pushed.push_str(description);
-    pushed
-}
-
 
 #[test]
 fn sort_two_test() {
