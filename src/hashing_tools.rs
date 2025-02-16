@@ -1,6 +1,9 @@
 use bitcoin_hashes::sha256;
 use bitcoin_hashes::Hash;
 
+///
+/// Takes two strings as parameters and returns them in a sorted string tuple.
+///
 pub fn sort_two(text1: &str, text2: &str) -> (String, String) {
             
     let mut t1 = text1;
@@ -14,38 +17,49 @@ pub fn sort_two(text1: &str, text2: &str) -> (String, String) {
     (t1.to_string(), t2.to_string())
 }
 
-pub fn hash_it(it: &str) -> String {
+///
+/// Returns a hash of a Str in String format.
+///
+pub fn hash_text(it: &str) -> String {
 
     sha256::Hash::hash(it.as_bytes()).to_string()
 }
 
+///
+/// Takes two strings, sort them and return a hash of the concatenation of the sorted pair.
+///
 pub fn sort_cat_n_hash(text1: &str, text2: &str) -> String {
+    
     let sorted = sort_two(text1, text2);
     cat_n_hash(sorted.0, sorted.1)
 }
 
-
+///
+/// Takes two strings as arguments and return a hash of the concatenation of the pair.
+///
 pub fn cat_n_hash(left: String, right: String) -> String {
 
     let mut concat: String = left.clone();
     concat.push_str(&right);
-    sha256::Hash::hash(concat.as_bytes()).to_string()
+    hash_text(&concat)
 }
 
-//old create_triple
+///
+/// Takes two strings, sort them and return a triple as a tuple consisting of a hash of the concatenation of the sorted pair and the two sorted values.
+///
 pub fn concat_n_hash(text1: &str, text2: &str) -> (String, String, String) {
-//println!("t1:{} t2:{}",text1,text2);
+
     let sorted = sort_two(text1.trim_matches('"'), text2.trim_matches('"'));
     let id = cat_n_hash(sorted.0.clone(), sorted.1.clone());
-//println!("t1:{} t2:{}", sorted.0, sorted.1);
     (id, sorted.0, sorted.1)
 }
 
-pub fn hash_text(text: &str) -> String {
-    let hash_of_string = sha256::Hash::hash(text.as_bytes());
-    hash_of_string.to_string()
-}
-
+///
+/// This method outght to be changed in the future as it concatenates fields without any separator
+/// character, making the risk of coalition higher. Also the name by be a bit confusing. It may be
+/// that the method is meant for hashed values, but the method itself does not have to do with
+/// hashing processes of any kind.
+///
 pub fn push_hashed(id: &str, name: &str, label: &str, description: &str) -> String{
     let mut pushed: String = id.to_string();
     pushed.push_str(name);
