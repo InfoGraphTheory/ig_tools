@@ -1,6 +1,6 @@
 [package]
 name = "ig_tools"
-version = "0.2.1"
+version = "0.3.0"
 edition = "2021"
 description = "Misc tools for list hashing, sorting and io"
 license = "MIT"
