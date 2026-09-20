@@ -1,3 +1,5 @@
 publish
 publish-dry-run
 allowed_signers
+Cargo.lock
+target/
